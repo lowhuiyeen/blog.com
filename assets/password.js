@@ -1,5 +1,5 @@
 
-const BLOG_PASSWORD = "mySecret123"; // ← 修改为你的密码
+const BLOG_PASSWORD = "huiyeen2025"; // ← 修改为你的密码
 const SESSION_KEY = "blog_pass_ok";
 
 function alreadyUnlocked(){ try{return sessionStorage.getItem(SESSION_KEY)==="1";}catch(e){return false;}}
