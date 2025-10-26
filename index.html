@@ -11,34 +11,45 @@
 <body>
   <div id="header-placeholder"></div>
 
-  <div id="pw-overlay" class="modal-overlay hidden">
+  <!-- Modal -->
+  <div id="pw-overlay" class="modal-overlay hidden" aria-modal="true" role="dialog">
     <div class="modal">
       <h3>请输入密码以查看内容</h3>
-      <div><input id="pw-input" type="password" placeholder="密码" /><div id="pw-hint" class="error"></div></div>
-      <div class="row"><button id="pw-btn">进入</button></div>
+      <div>
+        <input id="pw-input" type="password" placeholder="密码" autocomplete="off" />
+        <div id="pw-hint" class="error" aria-live="polite"></div>
+      </div>
+      <div class="row">
+        <button id="pw-btn">进入</button>
+      </div>
     </div>
   </div>
 
-  <div id="mask" class="container"><div class="card"><p>正在等待密码验证…</p></div></div>
+  <!-- Mask placeholder -->
+  <div id="mask" class="container">
+    <div class="card"><p>正在等待密码验证…</p></div>
+  </div>
 
-  <main class="container"><article id="content" class="card hidden"><h1>🌸 欢迎来到我的私人空间</h1><p>这里记录我的学习、思考与成长（仅本人可见）。</p></article></main>
+  <main class="container">
+    <article id="content" class="card hidden"><h1>🌸 欢迎来到我的私人空间</h1><p>这里记录我的学习、思考与成长（仅本人可见）。</p></article>
+  </main>
 
   <footer class="footer" id="footer-placeholder"></footer>
 
   <script>
-  async function loadPartials() {
-    try {
-      const [header, footer] = await Promise.all([
-        fetch('partials/header.html').then(r => r.text()),
-        fetch('partials/footer.html').then(r => r.text())
-      ]);
-      document.getElementById('header-placeholder').innerHTML = header;
-      document.getElementById('footer-placeholder').innerHTML = footer;
-    } catch (e) {
-      console.error('Failed to load partials', e);
+    async function loadPartials() {
+      try {
+        const [header, footer] = await Promise.all([
+          fetch('partials/header.html').then(r => r.text()),
+          fetch('partials/footer.html').then(r => r.text())
+        ]);
+        document.getElementById('header-placeholder').innerHTML = header;
+        document.getElementById('footer-placeholder').innerHTML = footer;
+      } catch (e) {
+        console.error('Failed to load partials', e);
+      }
     }
-  }
-  document.addEventListener('DOMContentLoaded', loadPartials);
+    document.addEventListener('DOMContentLoaded', loadPartials);
   </script>
 </body>
 </html>

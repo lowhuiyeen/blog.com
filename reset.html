@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>重置</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container card">
+    <h2>🔄 已重置</h2>
+    <p>即将返回主页并重新要求输入密码。</p>
+    <button onclick="location.href='index.html'">返回主页</button>
+  </div>
+  <script>
+    try {
+      sessionStorage.clear();
+      localStorage.clear();
+    } catch(e) {}
+    setTimeout(() => location.replace('index.html'), 400);
+  </script>
+</body>
+</html>
