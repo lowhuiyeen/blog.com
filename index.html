@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>主页</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="/assets/style.css" />
+  <script src="/assets/password.js" defer></script>
+</head>
+<body>
+  <div class="header">
+    <div class="container nav">
+      <strong>私人博客</strong>
+      <span style="margin-left:12px; color:#999;">（需密码）</span>
+      <div style="float:right;">
+        <a href="/index.html">主页</a>
+        <a href="/study.html">学习</a>
+        <a href="/thoughts.html">思考</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 遮罩（未验证前显示一个空白面板，避免暴露内容结构） -->
+  <div id="mask" class="container">
+    <div class="card">
+      <p>正在等待密码验证…</p>
+    </div>
+  </div>
+
+  <main class="container">
+    <article id="content" class="card hidden">
+      
+    <h1>🌸 欢迎来到我的私人空间</h1>
+    <p>这里记录我的学习、思考与成长（仅本人可见）。</p>
+    <h3>推荐使用方式</h3>
+    <ul>
+      <li>每周一次「回顾清单」：这周我学习了什么？有什么新的感受？</li>
+      <li>每月一次「复盘」：我想继续、我想调整、我想放下。</li>
+    </ul>
+    <p>你可以在 <code>assets/password.js</code> 中修改密码。</p>
+    
+    </article>
+  </main>
+
+  <div class="footer">
+    <div class="container">
+      <p>© 主页 — 仅供本人查看</p>
+    </div>
+  </div>
+</body>
+</html>
