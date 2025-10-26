@@ -1,24 +1,31 @@
-
 // ======= 设置你的密码（修改下行） =======
-const BLOG_PASSWORD = "huiyeen2025";
+const BLOG_PASSWORD = "mySecret123";
 // ======================================
 
-function askPasswordIfNeeded() {
-  try {
-    const key = "blog_pass_ok";
-    const ok = sessionStorage.getItem(key);
-    if (ok === "1") { revealContent(); return; }
-    const input = prompt("请输入密码查看此页内容：");
-    if (input === BLOG_PASSWORD) {
-      sessionStorage.setItem(key, "1");
-      revealContent();
-    } else {
-      alert("密码错误。");
-      // 简单处理：停留在空页。可根据需要跳转到 404。
-    }
-  } catch (e) {
-    console.error(e);
-  }
+const SESSION_KEY = "blog_pass_ok";
+
+function alreadyUnlocked() {
+  try { return sessionStorage.getItem(SESSION_KEY) === "1"; }
+  catch (e) { return false; }
+}
+
+function unlock() {
+  try { sessionStorage.setItem(SESSION_KEY, "1"); } catch(e){}
+  revealContent();
+  hideModal();
+}
+
+function showModal() {
+  const overlay = document.getElementById("pw-overlay");
+  if (!overlay) return;
+  overlay.classList.remove("hidden");
+  const input = document.getElementById("pw-input");
+  if (input) setTimeout(() => input.focus(), 50);
+}
+
+function hideModal() {
+  const overlay = document.getElementById("pw-overlay");
+  if (overlay) overlay.classList.add("hidden");
 }
 
 function revealContent() {
@@ -28,4 +35,30 @@ function revealContent() {
   if (mask) mask.remove();
 }
 
-document.addEventListener("DOMContentLoaded", askPasswordIfNeeded);
+function handleSubmit() {
+  const input = document.getElementById("pw-input");
+  const hint = document.getElementById("pw-hint");
+  if (!input || !hint) return;
+
+  if (input.value === BLOG_PASSWORD) {
+    unlock();
+  } else {
+    hint.textContent = "密码不正确，请再试一次。";
+    input.value = "";
+    input.focus();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  if (alreadyUnlocked()) {
+    revealContent();
+  } else {
+    showModal();
+  }
+  const btn = document.getElementById("pw-btn");
+  const input = document.getElementById("pw-input");
+  if (btn) btn.addEventListener("click", handleSubmit);
+  if (input) input.addEventListener("keydown", function(e){
+    if (e.key === "Enter") handleSubmit();
+  });
+});
