@@ -9,46 +9,32 @@
   <script src="/assets/password.js" defer></script>
 </head>
 <body>
-  <div class="header">
-    <div class="container nav">
-      <strong>私人博客</strong>
-      <span style="margin-left:12px; color:#999;">（需密码）</span>
-      <div style="float:right;">
-        <a href="/blog.html">主页</a>
-        <a href="/study.html">学习</a>
-        <a href="/thoughts.html">思考</a>
-      </div>
+  <div id="header-placeholder"></div>
+
+  <div id="pw-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>请输入密码以查看内容</h3>
+      <div><input id="pw-input" type="password" placeholder="密码" /><div id="pw-hint" class="error"></div></div>
+      <div class="row"><button id="pw-btn">进入</button></div>
     </div>
   </div>
 
-  <!-- 遮罩（未验证前显示一个空白面板，避免暴露内容结构） -->
-  <div id="mask" class="container">
-    <div class="card">
-      <p>正在等待密码验证…</p>
-    </div>
-  </div>
+  <div id="mask" class="container"><div class="card"><p>正在等待密码验证…</p></div></div>
 
-  <main class="container">
-    <article id="content" class="card hidden">
-      
-    <h1>📚 学习 Study</h1>
-    <p>记录研究进展、阅读摘要、灵感火花。</p>
-    <h3>本周要点</h3>
-    <ul>
-      <li>阅读：……</li>
-      <li>实验：……</li>
-      <li>难点/疑问：……</li>
-    </ul>
-    <h3>片段</h3>
-    <p>随手记：……</p>
-    
-    </article>
-  </main>
+  <main class="container"><article id="content" class="card hidden"><h1>📚 学习 Study</h1><p>记录研究进展、阅读摘要、灵感火花。</p></article></main>
 
-  <div class="footer">
-    <div class="container">
-      <p>© 学习 Study — 仅供本人查看</p>
-    </div>
-  </div>
+  <footer class="footer" id="footer-placeholder"></footer>
+
+  <script>
+  async function loadPartials() {
+    const [header, footer] = await Promise.all([
+      fetch('/partials/header.html').then(r => r.text()),
+      fetch('/partials/footer.html').then(r => r.text())
+    ]);
+    document.getElementById('header-placeholder').innerHTML = header;
+    document.getElementById('footer-placeholder').innerHTML = footer;
+  }
+  document.addEventListener('DOMContentLoaded', loadPartials);
+  </script>
 </body>
 </html>
