@@ -31,7 +31,34 @@
   </div>
 
   <main class="container">
-    <article id="content" class="card hidden"><h1>📚 学习 Study</h1><p>记录研究进展、阅读摘要、灵感火花。</p></article>
+    <!-- Card list -->
+    <section id="note-list" class="card-grid">
+      <!-- Example card (auto-filled by JS if you want multiple) -->
+      <article class="card note-card" data-note="content/CMEP.md" tabindex="0" aria-label="CMEP Note">
+        <h2>📘 CMEP Notes</h2>
+        <p class="note-snippet">Introduction to the Malaysian Capital Market, components, GDP links, and CMP3…</p>
+        <div class="row">
+          <button class="btn read-btn" data-note="content/CMEP.md">Read</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Fullscreen Reader (Modal) -->
+    <div id="reader-overlay" class="modal-overlay hidden" aria-modal="true" role="dialog" aria-labelledby="reader-title">
+      <div class="modal modal-reader" role="document">
+        <header class="reader-header">
+          <h3 id="reader-title">Reader</h3>
+          <div class="reader-actions">
+            <a id="open-raw" class="btn link" href="#" target="_blank" rel="noopener">Open Raw</a>
+            <button id="print-reader" class="btn">Print</button>
+            <button id="close-reader" class="btn btn-ghost" aria-label="Close (Esc)">✕</button>
+          </div>
+        </header>
+        <div id="reader-content" class="reader-body" tabindex="0" aria-live="polite">
+          <p>Loading…</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer" id="footer-placeholder"></footer>
@@ -51,52 +78,133 @@
     }
     document.addEventListener('DOMContentLoaded', loadPartials);
   </script>
+
   <!-- Markdown renderer + sanitizer -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
-<script>
-  // Choose file via URL ?note=xxx.md or use default
-  function getNoteSrc() {
-    const p = new URLSearchParams(location.search);
-    return p.get('note') || 'content/CMEP.md';
-  }
-
-  async function renderMarkdown() {
-    const target = document.getElementById('content');
-    try {
-      const res = await fetch(getNoteSrc(), { cache: 'no-store' });
-      if (!res.ok) throw new Error('Fetch failed: ' + res.status);
-      const md = await res.text();
-      const html = DOMPurify.sanitize(marked.parse(md));
-      target.innerHTML = `
-        <h1>📚 学习 Study</h1>
-        <p>记录研究进展、阅读摘要、灵感火花。</p>
-        <hr/>
-        ${html}
-      `;
-    } catch (e) {
-      target.innerHTML = `<p class="error">无法加载笔记：${e.message}</p>`;
+  <script>
+    // Utility: fetch & render MD
+    async function fetchMarkdown(src) {
+      const res = await fetch(src, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`Failed to fetch ${src} (${res.status})`);
+      return res.text();
     }
-  }
 
-  // Call this AFTER password success
-  window.onPasswordGranted = function () {
-    document.getElementById('pw-overlay').classList.add('hidden');
-    document.getElementById('mask').classList.add('hidden');
-    const content = document.getElementById('content');
-    content.classList.remove('hidden');
-    renderMarkdown();
-  };
-
-  // Fallback: if there is no password overlay (for local preview), load directly
-  document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('pw-overlay');
-    if (overlay && overlay.classList.contains('hidden')) {
-      window.onPasswordGranted();
+    function renderMDInto(htmlContainer, mdText) {
+      const html = DOMPurify.sanitize(marked.parse(mdText));
+      htmlContainer.innerHTML = html;
     }
-  });
-</script>
+
+    // Reader controls
+    const overlay = document.getElementById('reader-overlay');
+    const readerContent = document.getElementById('reader-content');
+    const closeBtn = document.getElementById('close-reader');
+    const printBtn = document.getElementById('print-reader');
+    const openRaw = document.getElementById('open-raw');
+
+    let lastFocused = null;
+
+    async function openReader(src, title = 'Reader') {
+      // remember focus
+      lastFocused = document.activeElement;
+
+      // header title / raw link
+      document.getElementById('reader-title').textContent = title;
+      openRaw.href = src;
+
+      // load content
+      readerContent.innerHTML = '<p>Loading…</p>';
+      try {
+        const md = await fetchMarkdown(src);
+        renderMDInto(readerContent, md);
+        // focus body for keyboard scroll
+        setTimeout(() => readerContent.focus(), 0);
+      } catch (e) {
+        readerContent.innerHTML = `<p class="error">无法加载内容：${e.message}</p>`;
+      }
+
+      // show modal
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // lock background scroll
+    }
+
+    function closeReader() {
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    // Click handlers for cards & buttons
+    function wireNoteCards() {
+      document.querySelectorAll('.read-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const src = btn.getAttribute('data-note');
+          const card = btn.closest('.note-card');
+          const title = card?.querySelector('h2')?.textContent?.trim() || 'Reader';
+          openReader(src, title);
+        });
+      });
+
+      // also allow Enter on whole card
+      document.querySelectorAll('.note-card').forEach(card => {
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const src = card.getAttribute('data-note');
+            const title = card.querySelector('h2')?.textContent?.trim() || 'Reader';
+            openReader(src, title);
+          }
+        });
+      });
+    }
+
+    // Close / Esc / overlay click
+    closeBtn.addEventListener('click', closeReader);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeReader();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (!overlay.classList.contains('hidden') && e.key === 'Escape') closeReader();
+    });
+
+    // Print
+    printBtn.addEventListener('click', () => {
+      // print only modal content
+      const win = window.open('', '_blank');
+      win.document.write(`
+        <html><head><title>Print</title>
+        <style>
+          body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+          img { max-width: 100%; border:2px solid #ccc; border-radius:8px; }
+          pre { background:#f7f7f7; padding:12px; border-radius:10px; overflow:auto; }
+          blockquote { border-left: 4px solid #ddd; padding-left:12px; color:#555; }
+        </style>
+        </head><body>${readerContent.innerHTML}</body></html>
+      `);
+      win.document.close();
+      win.focus();
+      win.print();
+      win.close();
+    });
+
+    // Integrate with your password flow
+    window.onPasswordGranted = function () {
+      document.getElementById('pw-overlay').classList.add('hidden');
+      document.getElementById('mask').classList.add('hidden');
+      document.getElementById('content')?.classList?.remove('hidden'); // if you keep it
+      wireNoteCards();
+    };
+
+    // Auto-enable for local preview when overlay hidden by default
+    document.addEventListener('DOMContentLoaded', () => {
+      const pw = document.getElementById('pw-overlay');
+      if (pw && pw.classList.contains('hidden')) {
+        window.onPasswordGranted();
+      }
+    });
+  </script>
+
 
 </body>
 </html>
