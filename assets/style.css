@@ -16,3 +16,10 @@ input[type="password"] { width: 100%; padding: 10px 12px; border: 1px solid #d0d
 .modal h3 { margin: 0 0 12px; }
 .modal .row { display: flex; gap: 10px; margin-top: 10px; }
 .modal .row button { flex: 0 0 auto; }
+#content img {
+  max-width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  display: block;
+  margin: 12px auto;
+}

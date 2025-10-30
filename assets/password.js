@@ -74,3 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(() => input.focus(), 50);
   }
 });
+
+// on success:
+window.onPasswordGranted();
+

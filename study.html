@@ -51,5 +51,52 @@
     }
     document.addEventListener('DOMContentLoaded', loadPartials);
   </script>
+  <!-- Markdown renderer + sanitizer -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+<script>
+  // Choose file via URL ?note=xxx.md or use default
+  function getNoteSrc() {
+    const p = new URLSearchParams(location.search);
+    return p.get('note') || 'content/CMEP.md';
+  }
+
+  async function renderMarkdown() {
+    const target = document.getElementById('content');
+    try {
+      const res = await fetch(getNoteSrc(), { cache: 'no-store' });
+      if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+      const md = await res.text();
+      const html = DOMPurify.sanitize(marked.parse(md));
+      target.innerHTML = `
+        <h1>📚 学习 Study</h1>
+        <p>记录研究进展、阅读摘要、灵感火花。</p>
+        <hr/>
+        ${html}
+      `;
+    } catch (e) {
+      target.innerHTML = `<p class="error">无法加载笔记：${e.message}</p>`;
+    }
+  }
+
+  // Call this AFTER password success
+  window.onPasswordGranted = function () {
+    document.getElementById('pw-overlay').classList.add('hidden');
+    document.getElementById('mask').classList.add('hidden');
+    const content = document.getElementById('content');
+    content.classList.remove('hidden');
+    renderMarkdown();
+  };
+
+  // Fallback: if there is no password overlay (for local preview), load directly
+  document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('pw-overlay');
+    if (overlay && overlay.classList.contains('hidden')) {
+      window.onPasswordGranted();
+    }
+  });
+</script>
+
 </body>
 </html>
