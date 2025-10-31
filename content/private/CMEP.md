@@ -126,24 +126,86 @@ By Securities Industry Development Corporation (SIDC)
 
 - Malaysia's **capital market size** increased to **RM 3.8 trillion in 2023** (from RM 3.6 trillion in 2022).
 - Growth driven by:
-    - **Stock market (Bursa Malaysia)** capitalisation increase.
-    - **Bonds and Sukuk** outstanding growth.
--**Fund management industry (AUM)** reach a record RM 975.5 billion**, with **unit trusts** forming over 50%.
-- **Fund raised** slowed to **RM 127.7 billion (2023)** vs. RM 179.4 billion (2022).
+    - **Stock market 股票市场 (Bursa Malaysia)** capitalisation increase.
+    - **Bonds and Sukuk 债券与伊斯兰债券** outstanding growth.
+-**Fund management industry 基金管理业(AUM)** reach a record RM 975.5 billion**, with **unit trusts 单位信托基金** forming over 50%.
+- **Fund raised 融资总额** slowed to **RM 127.7 billion (2023)** vs. RM 179.4 billion (2022).
 
-    - Equity fundrising (IPOs)： &uarr; RM 3.6 billion (32 IPOs)
-    - Secondary fundraising； &darr; RM 5.8 billion (from RM 22.6 billion 2022)
+    - **Equity fundrising (IPOs)**： &uarr; RM 3.6 billion (32 IPOs)
+    - **Secondary fundraising 二级市场融资**； &darr; RM 5.8 billion (from RM 22.6 billion 2022)
 
 - **Islamic Capital Market (ICM)** grew by **4.5%**, remaining dominant
-<p align="center">
-  <img src="https://lams.sidc.com.my/SIDCLMS_RootRepository/Saras/LearningObject/Packages/1050/2_Introduction%20Of%20the%20Malaysian%20Capital%20Market/scormcontent/assets/malaysia%20capital%20market%20size.png" 
-       alt="Malaysia Capital Market Size" 
-       style="border:2px solid #ccc; border-radius:8px; width:70%; max-width:600px;">
-  <br>
-  <em>Figure: Malaysia Capital Market Size (Source: SIDC)</em>
-</p>
 
+<p align="center">
+  <img src="../content/assets/malaysia-capital-market-size-2023.png"
+       alt="Malaysia Capital Market Size"
+       style="border:2px solid #ccc;
+              border-radius:8px;
+              padding:4px;
+              width:90%;
+              max-width:800px;">
+  <br>
+  <em>Figure 1 – Source: Bursa Malaysia; the SC’s calculations (2023).
+</em>
+</p>
 
 #### Capital Market Master Plan 3 (CMP3)
 
-- Vision:
+- Vision: A **relevant, efficient, and technology-driven** capital market that supports productivity sectors.
+- Key  thrusts:
+    - **Development Thrust 发展导向:** Facilitate capital flow into productive sectors.
+    - **Regulatory Thrust 监管导向:** Strengthen regulatory efficiency and investor protection.
+    - Promote **multi-layered and competitive 多层次市场发展** markets.
+
+#### Relationship: Capital Market &harr; Economy
+
+- **Capital market size** often correlates with **economic size 经济总量(GDP)**.
+- Factors that influence market size:
+    - Market **openness, regultion**, and **foreign investment inflows.**
+- **Economic indicators** (interest rates, inflation, GDP, money supply, FX rate, etc.) affect **market performance** and **asset values**.
+
+#### Malaysia's GDP and Indicators (Highlight)
+<p align="center">
+  <img src="../content/assets/qb24q1_en_annex_Page_1.png"
+       alt="Malaysia Capital Market Size"
+       style="border:2px solid #ccc;
+              border-radius:8px;
+              padding:4px;
+              width:90%;
+              max-width:800px;">
+  <br>
+  <em>Figure 2 – Source: Department of Statistics, Malaysia.
+</em>
+</p>
+
+##### GDP by Expenditure
+
+- **Private consumption** (60% of GDP) is the main driver of growth.
+- **Public sector investment** rebounded in 2024 (+9.2%).
+- **Exports** remain valatile; **net exports** nefative in 2023 but improving in 2024.
+- **Real GDP** growth:
+    - 2023: +3.65
+    - Q1 2024: +4.2%
+
+##### GDP by Sector
+
+- **Services sector** dominates (59.2% of GDP), grew +4.7% in Q1 2024.
+- **Construction** rebounded strongly (+11.9%).
+- **Manufacturing** grew moderately (+1.9%).
+
+#### Key Economic Indicator
+
+| **Indicator**               | **Direction**        | **Timing**     | **Meaning**                                 |
+| ----------------------- | ---------------- | ---------- | --------------------------------------- |
+| GDP Growth              | Pro-cyclical     | Coincident | Moves with economy                      |
+| Unemployment            | Counter-cyclical | Lagging    | Rises when economy weakens              |
+| Inflation               | Pro-cyclical     | Lagging    | Rises as economy grows                  |
+| Interest Rate           | Pro-cyclical     | Lagging    | Central bank reacts after growth shifts |
+| Balance of Trade        | Pro-cyclical     | Coincident | Improves with growth                    |
+| Currency (USD)          | Pro-cyclical     | Lagging    | Strengthens with economy                |
+| Stock Market (FBM KLCI) | Pro-cyclical     | Leading    | Rises before economy improves           |
+| Government Bond Yields  | Pro-cyclical     | Leading    | Reflect expectations of future growth   |
+
+**Source:** Department of Statistics Malaysia (DOSM),  
+*Malaysian Economic Indicators: Leading, Coincident and Lagging Indexes (Aug 2025)*,  
+[https://open.dosm.gov.my/data-catalogue/economic_indicators](https://open.dosm.gov.my/data-catalogue/economic_indicators)

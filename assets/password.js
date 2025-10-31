@@ -78,3 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // on success:
 window.onPasswordGranted();
 
+// example toggle button
+document.getElementById('toggle-size').onclick = () => {
+  document.querySelector('.modal-reader').classList.toggle('compact');
+};
