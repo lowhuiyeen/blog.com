@@ -1,5 +1,5 @@
 // ===== 修改为你的密码 =====
-const BLOG_PASSWORD = "huiyeen2025"; // ← set your password here
+const BLOG_PASSWORD = "huiyeen2025"; 
 // =========================
 const SESSION_KEY = "blog_pass_ok";
 
