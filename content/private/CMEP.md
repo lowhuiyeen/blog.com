@@ -206,6 +206,13 @@ By Securities Industry Development Corporation (SIDC)
 | Stock Market (FBM KLCI) | Pro-cyclical     | Leading    | Rises before economy improves           |
 | Government Bond Yields  | Pro-cyclical     | Leading    | Reflect expectations of future growth   |
 
+*Notes*
+- **Pro-cyclical** → moves *in the same direction* as the economy (rises in expansion, falls in recession).  
+- **Countercyclical** → moves *in the opposite direction* of the economy.  
+- **Leading indicators** → change *before* the economy does (predict future movement).  
+- **Coincident indicators** → change *at the same time* as the economy.  
+- **Lagging indicators** → change *after* the economy’s overall trend.
+
 **Source:** Department of Statistics Malaysia (DOSM),  
 *Malaysian Economic Indicators: Leading, Coincident and Lagging Indexes (Aug 2025)*,  
 [https://open.dosm.gov.my/data-catalogue/economic_indicators](https://open.dosm.gov.my/data-catalogue/economic_indicators)
